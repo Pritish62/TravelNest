@@ -14,6 +14,7 @@ async function main() {
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname,"views"))
 app.use(express.urlencoded({extended:true}));
+app.use(methodOverride("_mehtod"))
 
 app.get("/", (req, res) => {
     res.send("all set");
@@ -55,6 +56,21 @@ app.get("/listings/:id", async (req, res) => {
     res.render("listings/show.ejs", { listing});
 })
 
+//edit route
+app.get("/listings/:id/edit", async (req, res) => {
+    const {id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs" , { listing } )
+})
+
+//edit(post) = update db
+app.put("/listings/:id", async (req, res) => {
+     const {id} = req.params;
+     await Listing.findByIdAndUpdate(id, {...req.body.listing}).then((res)=> {
+        console.log(res);
+     })
+    res.redirect("/listings")
+})
 app.listen(3000, () => {
     console.log("server is started");
 });
