@@ -5,23 +5,65 @@ body{
 .bg-clr{
     background-color: #003B95 ;
 }
-footer
+/* footer */
+footer {
+    background-color: #ebebeb;   
+    padding: 20px 0;
+}
 
-.f-info-links a{
+.f-info {
+    display: flex;
+    flex-direction: column;      /* items stacked vertically */
+    align-items: center;         /* center horizontally */
+    gap: 12px;                   /* spacing between rows */
+}
+
+/* Social icons — one line */
+.f-info-social {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.f-info-social svg {
+    width: 28px;
+    height: 28px;  
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+.f-info-social svg:hover {
+    opacity: 0.7;              
+}
+
+/* Company name styling */
+.company-name {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Footer links — one line */
+.f-info-links {
+    display: flex;
+    gap: 20px;
+}
+
+.f-info-links a {
     text-decoration: none;
-    color: black;
+    font-size: 14px;
+    transition: opacity .2s;
 }
 
-.f-info-links a:hover{
-    text-decoration: underline;
+.f-info-links a:hover {
+    opacity: 0.7;
 }
-
-.f-info svg{
-    height: 2rem;
-    display: flex;
+.textlength{
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;    /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display an ellipsis for truncated text */
+  max-width: 50ch; /* Or use 'ch' units for character-based width, e.g., max-width: 75ch; */
 }
-.f-info{
-    display: flex;
-    height: 8rem;
-    background-color: #ebebeb;
+.cards{
+border-radius: 5rem;
 }
