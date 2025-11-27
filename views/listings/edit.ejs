@@ -1,19 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>edit listing</title>
-</head>
-<body>
-    <h3>edit listing   </h3>
-    <form method="post" action="/listings/<%=listing._id %>?_mehtod=put">
-        <input name="listing[title]"type="text" value="<%= listing.title %>"><br><br>
-        <textarea name="listing[description]" id="" cols="30" rows="10"><%= listing.description %></textarea><br><br>
-        <input type="number" name="listing[price]" value="<%= listing.price %> "><br><br>
-        <input type="text" name="listing[location]" value="<%= listing.location %> "><br><br>
-        <input type="text" name="listing[country]" value="<%= listing.country %>"><br><br>
-        <button>update</button>
+<% layout('/layouts/boilerplate') -%>
+
+    <form class="max-w-sm mx-auto" action="/listings/<%=listing._id %>?_mehtod=put" method="post">
+        <div class="mb-5">
+            <label for="title" class="block mb-2.5 text-sm font-medium text-heading"> Title
+            </label>
+            <input type="text" id="title" name="listing[title]"
+                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                value="<%= listing.title %>" />
+        </div>
+        <div class="mb-5">
+            <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Description </label>
+            <textarea id="message" rows="4" name="listing[description]"
+                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"><%= listing.description %></textarea>
+
+        </div>
+
+        <div class="form-adjust flex gap-2">
+
+            <div class="mb-5">
+                <label for="location-alternative" class="block mb-2.5 text-sm font-medium text-heading">Location</label>
+                <input type="text" name="listing[location]" id="location-alternative"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                    value="<%= listing.location %> " required />
+            </div>
+
+
+            <div class="mb-5">
+                <label for="country-alternative" class="block mb-2.5 text-sm font-medium text-heading">Country</label>
+                <input type="text" name="listing[country]" id="country-alternative"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                    value="<%= listing.country %>" required />
+            </div>
+
+        </div>
+
+
+
+        <div class="mb-5">
+            <label for="price-alternative" class="block mb-2.5 text-sm font-medium text-heading">price</label>
+            <input type="number" name="listing[price]" id="price-alternative"
+                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                value="<%= listing.price %> " required />
+        </div>
+        <button type="submit"
+            class="text-red add-btn bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">UPDATE</button>
+
     </form>
-</body>
-</html>
