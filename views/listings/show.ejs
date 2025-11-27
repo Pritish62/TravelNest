@@ -1,17 +1,54 @@
 <% layout('/layouts/boilerplate') -%>
-<body>
-    <h3>detail</h3>
-    <ul>
-        <li><%= listing.title %> </li>
-        <li><%= listing.description%> </li>
-        <li>&#8377;<%= listing.price.toLocaleString("en-IN") %> </li>
-        <li><%= listing.location %> </li>
-        <li><%= listing.country %> </li>
-        <form action="/listings/<%= listing._id %>/edit" method="get">
-                <button>edit</button>
-            </form>
-        <form method="post" action="/listings/<%=listing._id %>?_mehtod=delete">
-            <button>Delete</button>
-        </form>
-    </ul>
-</body>
+
+    <main class="min-h-[calc(100vh-4rem)] flex items-center">
+
+        <div
+            class=" max-w-4xl mx-auto my-12 rounded-md bg-neutral-primary-soft p-8 border rounded-base shadow-lg flex flex-col md:flex-row items-start gap-6 lg:h-[60vh]">
+
+            <img class="object-cover  rounded-md w-full md:w-64 lg:w-72 h-64 lg:h-full flex-shrink-0 rounded-base"
+                src="<%= listing.image.url %>" alt="<%= listing.title %>">
+            <div class="flex-1 h-full flex flex-col justify-between md:p-6 leading-normal text-left"
+>
+
+                <h3 class="mb-2 text-2xl font-bold tracking-tight text-heading">
+                    <%= listing.title %>
+                </h3>
+                <p class="mb-6 text-body max-w-xl">
+                    <%= listing.location %> , <%= listing.country %>
+                </p>
+                <p class="mb-6 text-body max-w-xl">
+                    <%= listing.description%>
+                </p>
+                <p class="font-semibold text-slate-800 max-w-xl">&#8377;<%= listing.price.toLocaleString('en-IN') %>
+                </p>
+                <div class="mt-4 flex flex-col sm:flex-row gap-3 items-center sm:items-start">
+                    <form action="/listings/<%= listing._id %>/edit" method="get">
+                        <button
+                            class=" btn-edit w-full sm:w-auto cursor-pointer inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                            EDIT
+                            <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                            </svg>
+                        </button>
+                    </form>
+                    <form method="post" action="/listings/<%=listing._id %>?_mehtod=delete">
+                        
+                        <button
+                            class=" btn-danger w-full sm:w-auto cursor-pointer inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                            DELETE
+                            <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                            </svg>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
