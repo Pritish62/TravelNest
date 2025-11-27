@@ -1,48 +1,56 @@
 <% layout('/layouts/boilerplate') -%>
 
-    <form class="max-w-sm mx-auto" action="/listings/<%=listing._id %>?_mehtod=put" method="post">
-        <div class="mb-5">
-            <label for="title" class="block mb-2.5 text-sm font-medium text-heading"> Title
-            </label>
-            <input type="text" id="title" name="listing[title]"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                value="<%= listing.title %>" />
+    <main class="min-h-[calc(100vh-4rem)]   mx-auto flex items-center">
+
+        <div
+            class=" max-w-4xl mx-auto my-4 rounded-md bg-neutral-primary-soft p-8 border rounded-base shadow-lg flex flex-col md:flex-row items-start gap-4 lg:h-[80vh]">
+            <form class="max-w-sm mx-auto" action="/listings/<%=listing._id %>?_mehtod=put" method="post">
+                <div class="mb-5">
+                    <label for="title" class="block mb-2.5 text-sm font-medium text-heading"> Title
+                    </label>
+                    <input type="text" id="title" name="listing[title]"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                        value="<%= listing.title %>" />
+                </div>
+                <div class="mb-5">
+                    <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Description </label>
+                    <textarea id="message" rows="4" name="listing[description]"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"><%= listing.description %></textarea>
+
+                </div>
+
+                <div class="form-adjust flex gap-2">
+
+                    <div class="mb-5">
+                        <label for="location-alternative"
+                            class="block mb-2.5 text-sm font-medium text-heading">Location</label>
+                        <input type="text" name="listing[location]" id="location-alternative"
+                            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                            value="<%= listing.location %> " required />
+                    </div>
+
+
+                    <div class="mb-5">
+                        <label for="country-alternative"
+                            class="block mb-2.5 text-sm font-medium text-heading">Country</label>
+                        <input type="text" name="listing[country]" id="country-alternative"
+                            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                            value="<%= listing.country %>" required />
+                    </div>
+
+                </div>
+
+
+
+                <div class="mb-5">
+                    <label for="price-alternative" class="block mb-2.5 text-sm font-medium text-heading">price</label>
+                    <input type="number" name="listing[price]" id="price-alternative"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                        value="<%= listing.price %> " required />
+                </div>
+                <button
+                    class="btn-edit add-btn bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">UPDATE</button>
+
+            </form>
         </div>
-        <div class="mb-5">
-            <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Description </label>
-            <textarea id="message" rows="4" name="listing[description]"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"><%= listing.description %></textarea>
-
-        </div>
-
-        <div class="form-adjust flex gap-2">
-
-            <div class="mb-5">
-                <label for="location-alternative" class="block mb-2.5 text-sm font-medium text-heading">Location</label>
-                <input type="text" name="listing[location]" id="location-alternative"
-                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                    value="<%= listing.location %> " required />
-            </div>
-
-
-            <div class="mb-5">
-                <label for="country-alternative" class="block mb-2.5 text-sm font-medium text-heading">Country</label>
-                <input type="text" name="listing[country]" id="country-alternative"
-                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                    value="<%= listing.country %>" required />
-            </div>
-
-        </div>
-
-
-
-        <div class="mb-5">
-            <label for="price-alternative" class="block mb-2.5 text-sm font-medium text-heading">price</label>
-            <input type="number" name="listing[price]" id="price-alternative"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                value="<%= listing.price %> " required />
-        </div>
-        <button type="submit"
-            class="text-red add-btn bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">UPDATE</button>
-
-    </form>
+    </main>
