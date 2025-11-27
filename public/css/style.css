@@ -1,21 +1,21 @@
+.bg-clr {
+    background-color: #003B95;
+}
 
-body{
-    background-color: pink;
-}
-.bg-clr{
-    background-color: #003B95 ;
-}
 /* footer */
 footer {
-    background-color: #ebebeb;   
+    background-color: #ebebeb;
     padding: 20px 0;
 }
 
 .f-info {
     display: flex;
-    flex-direction: column;      /* items stacked vertically */
-    align-items: center;         /* center horizontally */
-    gap: 12px;                   /* spacing between rows */
+    flex-direction: column;
+    /* items stacked vertically */
+    align-items: center;
+    /* center horizontally */
+    gap: 12px;
+    /* spacing between rows */
 }
 
 /* Social icons — one line */
@@ -27,13 +27,13 @@ footer {
 
 .f-info-social svg {
     width: 28px;
-    height: 28px;  
+    height: 28px;
     cursor: pointer;
     transition: opacity .2s;
 }
 
 .f-info-social svg:hover {
-    opacity: 0.7;              
+    opacity: 0.7;
 }
 
 /* Company name styling */
@@ -58,12 +58,23 @@ footer {
 .f-info-links a:hover {
     opacity: 0.7;
 }
-.textlength{
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden;    /* Hide overflowing content */
-  text-overflow: ellipsis; /* Display an ellipsis for truncated text */
-  max-width: 50ch; /* Or use 'ch' units for character-based width, e.g., max-width: 75ch; */
+
+.show-card {
+    height: 100vh;
 }
-.cards{
-border-radius: 5rem;
+
+.cards {
+    border-radius: 5rem;
+}
+
+.btn-danger {
+    background: #dc2626 !important;
+    color: #fff !important;
+    border-radius: 0.5rem;
+}
+
+.btn-edit {
+    background: #003B95 !important;
+    color: #fff !important;
+    border-radius: 0.5rem;
 }
