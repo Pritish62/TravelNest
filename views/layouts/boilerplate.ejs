@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelNest</title>
+    <!-- put in head -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- load tailwind first -->
+    <link rel="stylesheet" href="/css/style.css"> <!-- then your CSS -->
+
+</head>
+
+<body class="pt-16">
+    <%- include("../includes/nav.ejs") %>
+        <div class="container">
+            <%- body %>
+        </div>
+        <%- include("../includes/footer.ejs") %>
+</body>
+
+</html>
