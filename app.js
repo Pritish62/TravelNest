@@ -7,6 +7,8 @@ const path = require("path");
 const ejsMate = require('ejs-mate');
 const wrapAsync = require("./utils/wrapAsync.js");
 const AppError = require("./utils/appError.js");
+const {listingSchema} = require("./schema.js");
+const { valid } = require("joi");
 
 main().catch(err => console.log(err));
 
@@ -22,6 +24,15 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_mehtod"))
 
+const validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+
+    if(error){
+        throw new AppError(400, error)
+    }else{
+        next()
+    }
+}
 
 app.get("/", (req, res) => {
     res.send("all set");
@@ -39,7 +50,7 @@ app.get("/listings/new", (req, res) => {
 })
 
 //create route- subtmit data to db
-app.post("/listings",wrapAsync( async (req, res, next) => {
+app.post("/listings", validateListing ,wrapAsync( async (req, res, next) => {
     // const {title, description, image, price, location, country} = req.body;
     // const newListing = await new Listing ({
     //     title: title,
@@ -49,8 +60,8 @@ app.post("/listings",wrapAsync( async (req, res, next) => {
     //     location: location,
     //     country: country
     // })
-    
-        let newListing = new Listing(req.body.listing)
+   
+    let newListing = new Listing(req.body.listing)
     await newListing.save()
     console.log(newListing)
     res.redirect("/listings")
@@ -72,7 +83,7 @@ app.get("/listings/:id/edit", wrapAsync( async (req, res) => {
 }))
 
 //edit(post) = update db
-app.put("/listings/:id", wrapAsync( async (req, res) => {
+app.put("/listings/:id",validateListing, wrapAsync( async (req, res) => {
     const { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }).then((res) => {
         console.log(res);
