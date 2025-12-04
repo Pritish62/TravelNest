@@ -88,13 +88,14 @@ app.delete("/listings/:id", wrapAsync( async (req, res) => {
     res.redirect("/listings")
 }))
 
-app.all("*", (req, res, next) => {
-next(new AppError(404, "page is not exist"))
-})
+// app.all("*", (req, res, next) => {
+// next(new AppError(404, "page is not exist"))
+// })
 
 app.use((err, req, res, next) => {
-    let{statusCode, message} = err;
-    res.status(statusCode).send(message);
+    let{statusCode = 500, message} = err;
+    res.status(statusCode).render("error.ejs")
+    // res.status(statusCode).send(message);
     
 })
 
