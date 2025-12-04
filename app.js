@@ -5,19 +5,21 @@ const Listing = require("./models/listing.js");
 const app = express();
 const path = require("path");
 const ejsMate = require('ejs-mate');
+const wrapAsync = require("./utils/wrapAsync.js");
+const AppError = require("./utils/appError.js");
 
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/TravelNest');
+    await mongoose.connect('mongodb://127.0.0.1:27017/TravelNest');
 }
 
 app.engine('ejs', ejsMate);
 
 app.set("view engine", "ejs")
-app.set("views", path.join(__dirname,"views"))
-app.use(express.urlencoded({extended:true}))
-app.use(express.static(path.join(__dirname,"/public")))
+app.set("views", path.join(__dirname, "views"))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_mehtod"))
 
 
@@ -26,18 +28,18 @@ app.get("/", (req, res) => {
 });
 
 //index route
-app.get("/listings", async (req, res) => {
+app.get("/listings", wrapAsync( async (req, res) => {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs", { allListings });
-});
+}));
 
 //new route
-app.get("/listings/new", (req, res ) => {
+app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs");
 })
 
 //create route- subtmit data to db
-app.post("/listings", async (req, res) => {
+app.post("/listings",wrapAsync( async (req, res, next) => {
     // const {title, description, image, price, location, country} = req.body;
     // const newListing = await new Listing ({
     //     title: title,
@@ -47,44 +49,54 @@ app.post("/listings", async (req, res) => {
     //     location: location,
     //     country: country
     // })
-
-    let newListing = new Listing(req.body.listing)
+    
+        let newListing = new Listing(req.body.listing)
     await newListing.save()
     console.log(newListing)
     res.redirect("/listings")
-})
+    
+}))
 
 //show route 
-app.get("/listings/:id", async (req, res) => {
-    const {id} = req.params;
+app.get("/listings/:id",wrapAsync( async (req, res) => {
+    const { id } = req.params;
     const listing = await Listing.findById(id);
-    res.render("listings/show.ejs", { listing});
-})
+    res.render("listings/show.ejs", { listing });
+}))
 
 //edit route
-app.get("/listings/:id/edit", async (req, res) => {
-    const {id} = req.params;
+app.get("/listings/:id/edit", wrapAsync( async (req, res) => {
+    const { id } = req.params;
     const listing = await Listing.findById(id);
-    res.render("listings/edit.ejs" , { listing } )
-})
+    res.render("listings/edit.ejs", { listing })
+}))
 
 //edit(post) = update db
-app.put("/listings/:id", async (req, res) => {
-     const {id} = req.params;
-     await Listing.findByIdAndUpdate(id, {...req.body.listing}).then((res)=> {
+app.put("/listings/:id", wrapAsync( async (req, res) => {
+    const { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing }).then((res) => {
         console.log(res);
-     })
+    })
     res.redirect("/listings")
-})
+}))
 
 //delete route
-app.delete("/listings/:id", async(req,res) => {
-    const {id} = req.params;
+app.delete("/listings/:id", wrapAsync( async (req, res) => {
+    const { id } = req.params;
     const deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing)
     res.redirect("/listings")
+}))
+
+app.all("*", (req, res, next) => {
+next(new AppError(404, "page is not exist"))
 })
 
+app.use((err, req, res, next) => {
+    let{statusCode, message} = err;
+    res.status(statusCode).send(message);
+    
+})
 
 app.listen(3000, () => {
     console.log("server is started");
