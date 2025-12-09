@@ -1,54 +1,62 @@
 <% layout('/layouts/boilerplate') -%>
+    <main class="min-h-[calc(100vh-4rem)] flex items-center">
+        <div
+            class=" max-w-4xl mx-auto my-12 rounded-md bg-neutral-primary-soft p-8 border rounded-base shadow-2xl flex flex-col md:flex-row items-start gap-6 lg:h-[100vh]">
+            <form id="newListing-form" class="max-w-sm mx-auto" action="/listings" method="post" >
+                <div class="mb-5">
+                    <label for="title" class="block mb-2.5 text-sm font-medium text-heading"> Title
+                    </label>
+                    <input type="text" id="title" name="listing[title]"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                        placeholder="enter title" required />
+                </div>
+                <div class="mb-5">
+                    <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Description </label>
+                    <textarea id="message" rows="4" name="listing[description]"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
+                        placeholder="Write Description..." required></textarea>
 
-    <form class="max-w-sm mx-auto" action="/listings" method="post">
-        <div class="mb-5">
-            <label for="title"  class="block mb-2.5 text-sm font-medium text-heading"> Title
-            </label>
-            <input type="text" id="title" name="listing[title]"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                placeholder="enter title" required />
+                </div>
+                <div class="mb-5">
+                    <label for="img-alternative" class="block mb-2.5 text-sm font-medium text-heading">Image</label>
+                    <input type="text" name="listing[image]" id="img-alternative"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                        placeholder="Enter Image link" />
+                </div>
+
+                <div class="form-adjust flex gap-2">
+
+                    <div class="mb-5">
+                        <label for="location-alternative"
+                            class="block mb-2.5 text-sm font-medium text-heading">Location</label>
+                        <input type="text" name="listing[location]" id="location-alternative"
+                            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                            placeholder="ex- Mumbai" required />
+                    </div>
+
+
+                    <div class="mb-5">
+                        <label for="country-alternative"
+                            class="block mb-2.5 text-sm font-medium text-heading">Country</label>
+                        <input type="text" name="listing[country]" id="country-alternative"
+                            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                            placeholder="ex-India" required />
+                    </div>
+
+                </div>
+
+
+
+                <div class="mb-5">
+                    <label for="price-alternative" class="block mb-2.5 text-sm font-medium text-heading">price</label>
+                    <input type="number" name="listing[price]" id="price-alternative"
+                        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
+                        placeholder="Enter Price" required />
+                </div>
+                <button
+                    class="btn-edit bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">add</button>
+
+            </form>
         </div>
-        <div class="mb-5">
-            <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Description </label>
-            <textarea id="message" rows="4" name="listing[description]"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
-                placeholder="Write Description..."></textarea>
-
-        </div>
-        <div class="mb-5">
-            <label for="img-alternative" class="block mb-2.5 text-sm font-medium text-heading">Image</label>
-            <input type="text" name="listing[image]" id="img-alternative"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                placeholder="Enter Image link" required />
-        </div>
-
-        <div class="form-adjust flex gap-2">
-
-            <div class="mb-5">
-            <label for="location-alternative" class="block mb-2.5 text-sm font-medium text-heading">Location</label>
-            <input type="text" name="listing[location]" id="location-alternative"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                placeholder="ex- Mumbai" required />
-        </div>
-
-
-        <div class="mb-5">
-            <label for="country-alternative" class="block mb-2.5 text-sm font-medium text-heading">Country</label>
-            <input type="text" name="listing[country]" id="country-alternative"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                placeholder="ex-India" required />
-        </div>
-
-        </div>
-
-        
-
-        <div class="mb-5">
-            <label for="price-alternative" class="block mb-2.5 text-sm font-medium text-heading">price</label>
-            <input type="number" name="listing[price]" id="price-alternative"
-                class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                placeholder="Enter Price" required />
-        </div>
-            <button t class="btn-edit bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">add</button>
-
-    </form>
+    </main>
+    
