@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const review = require("./review");
 
 const listingSchema = new mongoose.Schema({
@@ -19,7 +20,7 @@ const listingSchema = new mongoose.Schema({
     price: Number,
     location: String,
     country: String,
-    review:[
+    reviews:[
         {
             type: Schema.Types.ObjectId,
         }
