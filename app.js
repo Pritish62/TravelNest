@@ -8,7 +8,8 @@ const ejsMate = require('ejs-mate');
 const wrapAsync = require("./utils/wrapAsync.js");
 const AppError = require("./utils/appError.js");
 const {listingSchema} = require("./schema.js");
-const { valid } = require("joi");
+const joi = require("joi");
+const Review = require("./models/review.js");
 
 main().catch(err => console.log(err));
 
@@ -98,6 +99,19 @@ app.delete("/listings/:id", wrapAsync( async (req, res) => {
     console.log(deletedListing)
     res.redirect("/listings")
 }))
+
+//-----Review------
+//post route
+app.post("/listings/:id/reviews", async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.review)
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+    console.log("review saved");
+    res.send("all set")
+})
 
 // app.all("*", (req, res, next) => {
 // next(new AppError(404, "page is not exist"))
