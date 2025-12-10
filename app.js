@@ -7,7 +7,7 @@ const path = require("path");
 const ejsMate = require('ejs-mate');
 const wrapAsync = require("./utils/wrapAsync.js");
 const AppError = require("./utils/appError.js");
-const {listingSchema} = require("./schema.js");
+const {listingSchema, reviewSchema} = require("./schema.js");
 const joi = require("joi");
 const Review = require("./models/review.js");
 
@@ -27,6 +27,16 @@ app.use(methodOverride("_mehtod"))
 
 const validateListing = (req, res, next) => {
     let {error} = listingSchema.validate(req.body);
+
+    if(error){
+        throw new AppError(400, error)
+    }else{
+        next()
+    }
+}
+
+const validateReview = (req, res, next) => {
+    let {error} = reviewSchema.validate(req.body);
 
     if(error){
         throw new AppError(400, error)
@@ -102,16 +112,16 @@ app.delete("/listings/:id", wrapAsync( async (req, res) => {
 
 //-----Review------
 //post route
-app.post("/listings/:id/reviews", async (req, res) => {
+app.post("/listings/:id/reviews", validateReview,wrapAsync( async (req, res) => {
     let listing = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.review)
+    let newReview = new Review(req.body.review);
     listing.reviews.push(newReview);
 
     await newReview.save();
     await listing.save();
     console.log("review saved");
-    res.send("all set")
-})
+    res.redirect(`/listings/${listing._id}`);
+}));
 
 // app.all("*", (req, res, next) => {
 // next(new AppError(404, "page is not exist"))
