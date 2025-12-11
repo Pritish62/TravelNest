@@ -82,7 +82,7 @@ app.post("/listings", validateListing ,wrapAsync( async (req, res, next) => {
 //show route 
 app.get("/listings/:id",wrapAsync( async (req, res) => {
     const { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
 }))
 
@@ -129,8 +129,8 @@ app.post("/listings/:id/reviews", validateReview,wrapAsync( async (req, res) => 
 
 app.use((err, req, res, next) => {
     let{statusCode = 500, message} = err;
-    res.status(statusCode).render("error.ejs")
-    // res.status(statusCode).send(message);
+    // res.status(statusCode).render("error.ejs")
+    res.status(statusCode).send(message);
     
 })
 
