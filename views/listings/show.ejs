@@ -55,14 +55,14 @@
     <div class="max-w-xl mx-auto ">
         <div class=" h-full  md:p-6 leading-normal text-left">
             <form action="/listings/<%= listing._id %>/reviews" method="POST">
-                <h4>write review</h4>
-                <br>
-                <input type="range" min="1" max="5"  name="review[rating]"> <br>
+                <h3>write review</h3>
+                <label for="range">rating</label><br>
+                <input type="range" min="1" max="5" name="review[rating]"> <br>
 
-                <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Your message</label>
-                <textarea id="message" rows="4" name="review[message]"
+                <label for="comment" class="block mb-2.5 text-sm font-medium text-heading">Your message</label>
+                <textarea id="comment" rows="4" name="review[comment]"
                     class="bg-neutral-secondary-medium border border-default-medium mb-3 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-s placeholder:text-body"
-                    placeholder="Write your thoughts here..."></textarea>
+                    placeholder="Write your thoughts here..." required></textarea>
 
                 <button
                     class=" btn-edit w-full sm:w-auto cursor-pointer inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
@@ -75,4 +75,21 @@
                 </button>
             </form>
         </div>
+    </div>
+    <hr>
+    <div class="review max-w-3xl mx-auto ">
+        <p><b>All Reviews</b></p>
+        <div class="review-card  grid grid-cols-2  ">
+            <% for(review of listing.reviews){ %>
+                <div
+                    class="bg-neutral-primary-soft block  ms-3 mr-3 p-3 mb-5 border border-default rounded-base shadow-xs">
+                    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Pritish</h5>
+                    <p class="text-body mb-6">
+                        <%= review.comment %> ,<br><br>
+                            <%= review.rating %> star
+                    </p>
+                </div>
+                <% } %>
+        </div>
+
     </div>
