@@ -5,6 +5,20 @@ const app = express();
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const AppError = require("./utils/appError.js");
+const session = require("express-session");
+ 
+const sessionInfo = {
+    secret: "thisissecretkey",
+    resave : false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        htppOnly: true
+    }
+}
+
+app.use(session(sessionInfo));
 
 //routes
 const listings = require("./routes/listing.js");
