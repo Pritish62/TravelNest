@@ -6,6 +6,7 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const AppError = require("./utils/appError.js");
 const session = require("express-session");
+const flash = require("connect-flash");
  
 const sessionInfo = {
     secret: "thisissecretkey",
@@ -19,6 +20,13 @@ const sessionInfo = {
 }
 
 app.use(session(sessionInfo));
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
 
 //routes
 const listings = require("./routes/listing.js");
