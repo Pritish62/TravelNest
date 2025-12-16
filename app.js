@@ -5,32 +5,42 @@ const app = express();
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const AppError = require("./utils/appError.js");
+const listingsRoute = require("./routes/listing.js");
+const reviewsRoute = require("./routes/review.js");
+const usersRoute = require("./routes/user.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+
  
 const sessionInfo = {
     secret: "thisissecretkey",
     resave : false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        htppOnly: true
+        httpOnly: true
     }
 }
 
 app.use(session(sessionInfo));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
 });
-
-//routes
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
 
 main().catch(err => console.log(err));
 
@@ -39,17 +49,18 @@ async function main() {
 }
 
 app.engine('ejs', ejsMate);
-
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride("_mehtod"))
+app.use(methodOverride("_method"))
+
 
 
 //use of routes
-app.use("/listings", listings )
-app.use("/listings/:id/reviews", reviews)
+app.use("/listings", listingsRoute )
+app.use("/listings/:id/reviews", reviewsRoute)
+app.use("/", usersRoute);
 
 
 // app.all("*", (req, res, next) => {
