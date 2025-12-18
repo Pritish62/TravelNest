@@ -16,12 +16,16 @@
                     <%= listing.location %> , <%= listing.country %>
                 </p>
                 <p class="mb-6 text-body max-w-xl">
+                    listed by-<i><%= listing.owner.username%></i>
+                </p>
+                <p class="mb-6 text-body max-w-xl">
                     <%= listing.description%>
                 </p>
                 <p class="font-semibold text-slate-800 max-w-xl">&#8377;<%= listing.price.toLocaleString('en-IN') %>
                 </p>
-                <div class="mt-4 flex flex-col sm:flex-row gap-3 items-center sm:items-start">
-                    <form action="/listings/<%= listing._id %>/edit" method="get">
+                <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
+                 <div class="mt-4 flex flex-col sm:flex-row gap-3 items-center sm:items-start">
+                     <form action="/listings/<%= listing._id %>/edit" method="get">
                         <button
                             class=" btn-edit w-full sm:w-auto cursor-pointer inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                             EDIT
@@ -33,7 +37,7 @@
                             </svg>
                         </button>
                     </form>
-                    <form method="post" action="/listings/<%=listing._id %>?_mehtod=delete">
+                    <form method="post" action="/listings/<%=listing._id %>?_method=delete">
 
                         <button
                             class=" btn-danger w-full sm:w-auto cursor-pointer inline-flex items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
@@ -46,14 +50,16 @@
                             </svg>
                         </button>
                     </form>
-
                 </div>
+                <% } %>
             </div>
         </div>
     </main>
     <hr>
-    <div class="max-w-xl mx-auto ">
+    
+     <div class="max-w-xl mx-auto ">
         <div class=" h-full  md:p-6 leading-normal text-left">
+            <% if (currUser) { %>
             <form action="/listings/<%= listing._id %>/reviews" method="POST">
                 <h3>write review</h3>
                 <label for="range">rating</label><br>
@@ -74,6 +80,7 @@
                     </svg>
                 </button>
             </form>
+            <% } %>
         </div>
     </div>
     <hr>
@@ -83,12 +90,12 @@
             <% for(review of listing.reviews){ %>
                 <div
                     class="bg-neutral-primary-soft block  ms-3 mr-3 p-3 mb-5 border border-default rounded-base shadow-xs">
-                    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Pritish</h5>
+                    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">@<%= review.author.username %></h5>
                     <p class="text-body mb-6">
                         <%= review.comment %> ,<br><br>
                             <%= review.rating %> star
                     </p>
-                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_mehtod=DELETE" method="post">
+                    <form method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" >
                         <button
                             class="br-gray-300 hover:bg-gray-400 hover:border-white text-sm text-gray-800 font-bold py-1.5 px-3 border border-gray-800  rounded inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15"
