@@ -61,7 +61,7 @@ app.use(methodOverride("_method"))
 
 //use of routes
 app.use("/listings", listingsRoute )
-app.use("/listings/:id/reviews", reviewsRoute)
+app.use("/listings/:id", reviewsRoute)
 app.use("/", usersRoute);
 
 
