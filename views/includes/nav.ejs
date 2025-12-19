@@ -1,85 +1,97 @@
-<nav class="bg-clr fixed w-full z-20 top-0 start-0 border-b border-default">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="/listings" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="/logo.png" class="h-7" alt="Flowbite Logo">
-    </a>
-    <!-- burger menu btn -->
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button data-collapse-toggle="navbar-sticky" type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
-        aria-controls="navbar-sticky" aria-expanded="false">
+<!-- Drop-in navbar (EJS). Desktop: logo at left, site links immediately to the right,
+auth buttons at the far right. Mobile: burger toggles a stacked menu. -->
+<nav class="bg-clr fixed w-full z-20 top-0 left-0 border-b border-default">
+  <div class="max-w-screen-xl mx-auto px-4 relative h-16 flex items-center">
+    <!-- LEFT: logo + inline nav (nav becomes visible on md+) -->
+    <div class="flex items-center gap-6">
+      <!-- LOGO (left on all screens) -->
+      <a href="/listings" class="flex items-center">
+        <img src="/logo.png" class="h-8" alt="Travelnest Logo">
+      </a>
+
+      <!-- Desktop nav links: visible from md and placed immediately right of logo -->
+      <ul class="hidden md:flex items-center gap-6 whitespace-nowrap">
+        <li><a href="/" class="py-2 px-3 text-white font-medium hover:opacity-90">Home</a></li>
+        <li><a href="/listings" class="py-2 px-3 text-white font-medium hover:opacity-90">All Listings</a></li>
+        <li><a href="/listings/new" class="py-2 px-3 text-white font-medium hover:opacity-90">Add New Listing</a></li>
+      </ul>
+    </div>
+
+    <!-- RIGHT: auth buttons on desktop -->
+    <div class="ml-auto hidden md:flex items-center gap-4">
+      <% if (!currUser) { %>
+        <a href="/signup" class="px-4 py-2 text-sm font-semibold text-white bg-brand rounded-base hover:bg-neutral-tertiary transition">Sign Up</a>
+        <a href="/login"  class="px-4 py-2 text-sm font-semibold text-white bg-brand rounded-base hover:bg-neutral-tertiary transition">Login</a>
+      <% } else { %>
+        <span class="text-sm font-medium text-white/80 mr-2 hidden md:inline">Hello, <%= currUser.username %></span>
+        <a href="/logout" class="px-4 py-2 text-sm font-semibold text-white bg-brand rounded-base hover:bg-neutral-tertiary transition">Logout</a>
+      <% } %>
+    </div>
+
+    <!-- BURGER: visible only on small screens, placed at right -->
+    <div class="ml-auto md:hidden">
+      <button id="nav-toggle" aria-controls="mobile-menu" aria-expanded="false"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-base hover:bg-neutral-secondary-soft focus:outline-none focus:ring-2 focus:ring-neutral-tertiary">
         <span class="sr-only">Open main menu</span>
-        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-          fill="none" viewBox="0 0 24 24">
+        <svg id="nav-icon" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
         </svg>
       </button>
     </div>
-    <div class="items-center justify-between  hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-      <div class="siteOption ml-auto">
-        <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-default rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-neutral-primary">
-          <li>
-            <a href="/" class="block py-2 px-3 text-white bg-brand rounded-sm md:bg-transparent md:text-fg-brand md:p-0"
-              aria-current="page">Home</a>
-          </li>
-          <li>
-            <a href="listings"
-              class="block py-2 px-3 text-white bg-brand rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">All
-              Listings</a>
-          </li>
-          <li>
-            <a href="/listings/new"
-              class="block py-2 px-3 text-white bg-brand rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Add
-              New Listings</a>
-          </li>
+  </div>
 
-        </ul>
-      </div>
-      <div class="userOption ">
-        <ul
-          class="flex justify-end  p-4 md:p-0 mt-4 font-medium border border-default rounded-base bg-neutral-secondary-soft md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-neutral-primary">
-          <% if (!currUser) { %>
-            <li>
-              <a href="/signup"
-                class="block py-2 px-3 text-white bg-brand rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Sign
-                Up</a>
-            </li>
-            <li>
-              <a href="login"
-                class="block py-2 px-3 text-white bg-brand rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Login</a>
-            </li>
-            <% } %>
-              <% if (currUser) { %>
-                <li>
-                  <a href="logout"
-                    class="block py-2 px-3 text-white bg-brand rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Logout</a>
-                </li>
-                <% } %>
-        </ul>
-      </div>
+  <!-- MOBILE MENU: stacked links + auth (appears under the header on small screens) -->
+  <div id="mobile-menu" class="hidden md:hidden bg-clr border-t border-default">
+    <div class="px-4 pt-3 pb-4 space-y-3">
+      <!-- links -->
+      <a href="/" class="block py-2 px-3 text-white font-medium rounded hover:bg-neutral-secondary-soft">Home</a>
+      <a href="/listings" class="block py-2 px-3 text-white font-medium rounded hover:bg-neutral-secondary-soft">All Listings</a>
+      <a href="/listings/new" class="block py-2 px-3 text-white font-medium rounded hover:bg-neutral-secondary-soft">Add New Listing</a>
 
+      <!-- divider -->
+      <div class="border-t border-default my-1"></div>
+
+      <!-- auth actions (stacked full width on mobile) -->
+      <% if (!currUser) { %>
+        <a href="/signup" class="block w-full text-center py-2 px-3 text-white font-semibold bg-brand rounded-base hover:bg-neutral-tertiary transition">Sign Up</a>
+        <a href="/login"  class="block w-full text-center py-2 px-3 text-white font-semibold bg-brand rounded-base hover:bg-neutral-tertiary transition">Login</a>
+      <% } else { %>
+        <div class="px-1">
+          <span class="block py-2 text-white/80">Hello, <%= currUser.username %></span>
+          <a href="/logout" class="block w-full text-center py-2 px-3 text-white font-semibold bg-brand rounded-base hover:bg-neutral-tertiary transition">Logout</a>
+        </div>
+      <% } %>
     </div>
   </div>
 </nav>
+
+<!-- Small script: toggle mobile menu and swap icon -->
 <script>
-  // find the button that controls the menu
-  const menuButton = document.querySelector('button[aria-controls="navbar-sticky"]');
-  const menu = document.getElementById('navbar-sticky');
+  (function () {
+    const toggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navIcon = document.getElementById('nav-icon');
 
-  if (menuButton && menu) {
-    menuButton.addEventListener('click', () => {
-      const isOpen = !menu.classList.contains('hidden');
+    if (!toggle || !mobileMenu || !navIcon) return;
 
-      // toggle visibility (Tailwind 'hidden' class)
-      menu.classList.toggle('hidden');
-
-      // update aria-expanded
-      menuButton.setAttribute('aria-expanded', String(!isOpen));
-
-      // optional: update sr-only text or toggle an 'open' class for animation
-      const sr = menuButton.querySelector('.sr-only');
-      if (sr) sr.textContent = isOpen ? 'Open main menu' : 'Close main menu';
+    toggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        navIcon.innerHTML = '<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+      } else {
+        navIcon.innerHTML = '<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>';
+      }
     });
-  }
+
+    // keep layout consistent on resize:
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        // ensure mobile menu is hidden when switching to desktop
+        mobileMenu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        navIcon.innerHTML = '<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>';
+      }
+    });
+  })();
 </script>
