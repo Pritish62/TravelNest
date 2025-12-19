@@ -16,25 +16,20 @@ const validateListing = (req, res, next) => {
         next()
     }
 }
-//index route
-router.get("/", wrapAsync(listingController.index));
+
+router.route("/")
+.get(wrapAsync(listingController.index))//index route
+.post(validateListing ,wrapAsync(listingController.submitFromData));//create route- subtmit data to db
 
 //new route
 router.get("/new",isLoggedin, listingController.renderNewFrom);
 
-//create route- subtmit data to db
-router.post("/", validateListing ,wrapAsync(listingController.submitFromData));
-
-//show route 
-router.get("/:id",wrapAsync( listingController.showListing));
+router.route("/:id")
+.get(wrapAsync( listingController.showListing))//show route 
+.put(isLoggedin,isOwner,validateListing, wrapAsync( listingController.updateListing))//edit(post) = update db
+.delete(isLoggedin, isOwner, wrapAsync( listingController.destroyListing));//delete route
 
 //edit route - render form
 router.get("/:id/edit",isLoggedin,isOwner, wrapAsync(listingController.renderEditFrom));
-
-//edit(post) = update db
-router.put("/:id",isLoggedin,isOwner,validateListing, wrapAsync( listingController.updateListing));
-
-//delete route
-router.delete("/:id",isLoggedin, isOwner, wrapAsync( listingController.destroyListing));
 
 module.exports = router;
