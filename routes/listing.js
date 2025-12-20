@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config()
+};
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
@@ -6,6 +9,9 @@ const {listingSchema, reviewSchema} = require("../schema.js");
 const Listing = require("../models/listing.js");
 const {isLoggedin, isOwner} = require("../middleware.js");
 const listingController = require("../controller/listing.js");
+const multer  = require('multer');
+const {storage} = require("../cloudeConfig.js");
+const upload = multer({ storage });
 
 const validateListing = (req, res, next) => {
     let {error} = listingSchema.validate(req.body);
@@ -19,7 +25,8 @@ const validateListing = (req, res, next) => {
 
 router.route("/")
 .get(wrapAsync(listingController.index))//index route
-.post(validateListing ,wrapAsync(listingController.submitFromData));//create route- subtmit data to db
+.post(isLoggedin,upload.single('listing[image]'),validateListing ,wrapAsync(listingController.submitFromData));//create route- subtmit data to db
+
 
 //new route
 router.get("/new",isLoggedin, listingController.renderNewFrom);
