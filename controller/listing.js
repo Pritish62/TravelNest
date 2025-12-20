@@ -9,8 +9,12 @@ module.exports.renderNewFrom  =  (req, res) => {
 }
 
 module.exports.submitFromData =  async (req, res, next) => {
+    const url = req.file.path;
+    const filename = req.file.filename;
+
     let newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
+    newListing.image = {url, filename};
     await newListing.save();
     console.log(newListing);
     req.flash("success", "new listings is created succesfully!");
