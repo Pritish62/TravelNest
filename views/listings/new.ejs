@@ -2,7 +2,8 @@
     <main class="min-h-[calc(100vh-4rem)] flex items-center">
         <div
             class=" max-w-4xl mx-auto my-12 rounded-md bg-neutral-primary-soft p-8 border rounded-base shadow-2xl flex flex-col md:flex-row items-start gap-6 lg:h-[100vh]">
-            <form id="newListing-form" class="max-w-sm mx-auto" action="/listings" method="post" >
+            <form id="newListing-form" class="max-w-sm mx-auto" action="/listings" method="post"  enctype="multipart/form-data">
+                <!-- title of listing  -->
                 <div class="mb-5">
                     <label for="title" class="block mb-2.5 text-sm font-medium text-heading"> Title
                     </label>
@@ -10,6 +11,7 @@
                         class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
                         placeholder="enter title" required />
                 </div>
+                <!-- description of listing  -->
                 <div class="mb-5">
                     <label for="message" class="block mb-2.5 text-sm font-medium text-heading">Description </label>
                     <textarea id="message" rows="4" name="listing[description]"
@@ -17,15 +19,15 @@
                         placeholder="Write Description..." required></textarea>
 
                 </div>
+                <!-- image uploade  -->
                 <div class="mb-5">
-                    <label for="img-alternative" class="block mb-2.5 text-sm font-medium text-heading">Image</label>
-                    <input type="text" name="listing[image]" id="img-alternative"
+                    <label for="img-alternative" class="block mb-2.5 text-sm font-medium text-heading">Uploade Image</label>
+                    <input type="file" name="listing[image]" id="img-alternative"
                         class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body"
-                        placeholder="Enter Image link" />
+                         />
                 </div>
-
+                    <!-- location of listing  -->
                 <div class="form-adjust flex gap-2">
-
                     <div class="mb-5">
                         <label for="location-alternative"
                             class="block mb-2.5 text-sm font-medium text-heading">Location</label>
@@ -46,7 +48,7 @@
                 </div>
 
 
-
+                <!-- price of listing  -->
                 <div class="mb-5">
                     <label for="price-alternative" class="block mb-2.5 text-sm font-medium text-heading">price</label>
                     <input type="number" name="listing[price]" id="price-alternative"
