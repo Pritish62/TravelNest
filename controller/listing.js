@@ -50,13 +50,32 @@ module.exports.renderEditFrom =  async (req, res) => {
 }
 
 module.exports.updateListing = async (req, res) => {
-    const { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing }).then((res) => {
-        console.log(res);
-    })
-    req.flash("success", "listing is edited ");
-    res.redirect("/listings");
-}
+    console.log("BODY:", req.body);
+console.log("FILE:", req.file);
+
+  const { id } = req.params;
+
+  // update text fields
+  const listing = await Listing.findByIdAndUpdate(
+    id,
+    { ...req.body.listing },
+    { new: true }
+  );
+
+  // if new image uploaded
+  if (req.file) {
+    listing.image = {
+      url: req.file.path,      // Cloudinary URL
+      filename: req.file.filename
+    };
+    await listing.save();
+    console.log(listing)
+  }
+
+  req.flash("success", "Listing edited successfully");
+  res.redirect(`/listings/${id}`);
+};
+
 
 module.exports.destroyListing = async (req, res) => {
     const { id } = req.params;
