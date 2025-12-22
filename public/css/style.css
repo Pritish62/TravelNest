@@ -78,3 +78,11 @@ footer {
     color: #fff !important;
     border-radius: 0.5rem;
 }
+
+#map {
+     height: 320px;
+    width: 60%; 
+    border: 2px black solid;
+    border-radius: 1rem;
+    margin: auto;
+}
