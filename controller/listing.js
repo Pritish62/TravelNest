@@ -50,9 +50,6 @@ module.exports.renderEditFrom =  async (req, res) => {
 }
 
 module.exports.updateListing = async (req, res) => {
-    console.log("BODY:", req.body);
-console.log("FILE:", req.file);
-
   const { id } = req.params;
 
   // update text fields
