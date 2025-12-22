@@ -29,7 +29,13 @@ const listingSchema = new mongoose.Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
+    },
+    location: String,
+        coordinates: {
+        lat: Number,
+        lng: Number
     }
+
 });
 
 listingSchema.post("findOneAndDelete", async(listing) => {
