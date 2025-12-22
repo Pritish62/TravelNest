@@ -1,4 +1,8 @@
-<% layout('/layouts/boilerplate') -%>
+<% layout('/layouts/boilerplate') -%>   
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
     <main class="min-h-[calc(100vh-4rem)] flex items-center">
 
@@ -130,5 +134,13 @@
                 </div>
                 <% } %>
         </div>
+    </div>   
+    <div id="map" style="height: 400px;">
 
     </div>
+    <script>
+  const coordinates =  JSON.stringify(listing.geometry.coordinates) 
+</script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/map.js"></script>
