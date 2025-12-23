@@ -3,6 +3,9 @@
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
+<script>
+  const geometry = <%- JSON.stringify(listing.geometry) %>;
+</script>
 
     <main class="min-h-[calc(100vh-4rem)] flex items-center">
 
@@ -134,8 +137,8 @@
                 </div>
                 <% } %>
         </div>
-    </div>   
-    <div id="map" style="height: 400px;">
+    </div>    
+    <div id="map" style="height: 400px;" >
 
     </div>
     <script>
