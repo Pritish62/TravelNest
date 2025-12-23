@@ -86,3 +86,38 @@ footer {
     border-radius: 1rem;
     margin: auto;
 }
+#home-deco{
+    height: 38vh;
+    width: 100%;
+    
+}
+.text-container-home{
+    padding-top: 90px;
+    padding-bottom: 40px;
+    padding-inline-start: 11rem;
+}
+#end-card{
+ width: 60%;
+}
+.save-money-card{
+    height: 7rem;
+    width: 100%;
+    border: 2px black solid;
+    border-radius: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+
+}
+.save-money-card img{
+    height: 6rem;
+    
+}
+#end-card h1{
+    padding: 5px 0;
+}
+
+#nav-search{
+    margin-top: 5rem;
+    width: 50%;
+}
