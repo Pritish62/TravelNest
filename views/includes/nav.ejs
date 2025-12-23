@@ -1,7 +1,5 @@
-<!-- Drop-in navbar (EJS). Desktop: logo at left, site links immediately to the right,
-auth buttons at the far right. Mobile: burger toggles a stacked menu. -->
-<nav class="bg-clr fixed w-full z-20 top-0 left-0 border-b border-default">
-  <div class="max-w-screen-xl mx-auto px-4 relative h-16 flex items-center">
+<nav class="bg-clr  w-full z-20 top-0 left-0 border-b border-default">
+  <div class="max-w-screen-xl mx-auto px-4 relative h-24 flex items-center">
     <!-- LEFT: logo + inline nav (nav becomes visible on md+) -->
     <div class="flex items-center gap-6">
       <!-- LOGO (left on all screens) -->
@@ -11,17 +9,22 @@ auth buttons at the far right. Mobile: burger toggles a stacked menu. -->
 
       <!-- Desktop nav links: visible from md and placed immediately right of logo -->
       <ul class="hidden md:flex items-center gap-6 whitespace-nowrap">
-        <li><a href="/" class="py-2 px-3 text-white font-medium hover:opacity-90">Home</a></li>
-        <li><a href="/listings" class="py-2 px-3 text-white font-medium hover:opacity-90">All Listings</a></li>
-        <li><a href="/listings/new" class="py-2 px-3 text-white font-medium hover:opacity-90">Add New Listing</a></li>
+        <li><a href="/listings" class="py-2 px-3 text-white font-medium hover:opacity-90">Home</a></li>
+        
       </ul>
     </div>
+     <% if (!isHome) { %>
+    <div id="nav-search">
+          <%- include('../includes/searchBar.ejs') %>
+    </div>
+  <% } %>
 
     <!-- RIGHT: auth buttons on desktop -->
     <div class="ml-auto hidden md:flex items-center gap-4">
+      <div class="px-3 py-2 bg-natural border-radius rounded-sm text-sm font-semibold text-white hover:bg-[#1d4d96]"><a href="/listings/new" class="py-2 px-3 text-white font-medium hover:opacity-90">List your property</a></div>
       <% if (!currUser) { %>
-        <a href="/signup" class="px-4 py-2 text-sm font-semibold text-white bg-brand rounded-base hover:bg-neutral-tertiary transition">Sign Up</a>
-        <a href="/login"  class="px-4 py-2 text-sm font-semibold text-white bg-brand rounded-base hover:bg-neutral-tertiary transition">Login</a>
+        <a href="/signup" class="px-3 py-2 bg-white border-radius rounded-sm text-sm font-semibold text-[#003B95] hover:bg-[#eeedff]">Sign Up</a>
+        <a href="/login"  class="px-4 py-2 bg-white border-radius rounded-sm text-sm font-semibold text-[#003B95]  hover:bg-[#eeedff] transition">Login</a>
       <% } else { %>
         <span class="text-sm font-medium text-white/80 mr-2 hidden md:inline">Hello, <%= currUser.username %></span>
         <a href="/logout" class="px-4 py-2 text-sm font-semibold text-white bg-brand rounded-base hover:bg-neutral-tertiary transition">Logout</a>
