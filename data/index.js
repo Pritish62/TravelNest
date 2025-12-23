@@ -10,10 +10,19 @@ async function main() {
 }
 
 const initDB = async () => {
-    await Listing.deleteMany({});
-    initData.data = initData.data.map((obj) => ({...obj, owner:"69417ad4239778d81c870831",}));
-    await Listing.insertMany(initData.data);
-    console.log("data inserted");
-}
+  await Listing.deleteMany({});
+
+  initData.data = initData.data.map((obj) => ({
+    ...obj,
+    owner: "69417ad4239778d81c870831",
+    geometry: obj.geometry || {
+      type: "Point",
+      coordinates: [77.2090, 28.6139]
+    }
+  }));
+
+  await Listing.insertMany(initData.data);
+  console.log("data inserted");
+};
 
 initDB();
