@@ -1,8 +1,19 @@
 <% layout('/layouts/boilerplate') -%>
+<div id="home-deco" class="bg-[#003B95]  ">
+  <div class="text-container-home ">
+<h1 class="text-5xl font-bold text-[#FFFFFF] text-900">Find your next stay</h1>
+<h3 class="text-2xl  text-[#FFFFFF] text-400">Search low prices on hotels, homes and much more..</h3>
+
+  </div>
+
+    <%- include('../includes/searchBar.ejs') %>
+</div>
 
   <div class="max-w-7xl mx-auto px-4 py-6  ">
-    <h3 class="text-2xl font-semibold mb-6">All listings</h3>
 
+    <%- include('../includes/expIndia.ejs') %>
+    
+  
     <!-- GRID: 1 column on small, 3 on md, 4 on lg -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
       <% for (const listing of allListings) { %>
@@ -48,4 +59,23 @@
       <% } %>
     </div>
   </div>
+  
+  <div id="end-card" class="max-w-7xl mx-auto px-4 py-6  ">
+    
+    <h1 class="text-xl font-bold ">Travel more, spend less</h1>
+    
+    <div class="save-money-card">
+      <div class="offer-card-container">
+        
+      <h3 class="text-sm font-bold " >Sign in, save money</h3>
+    <h1 class="text-sm font-light font-400" >Save 10% or more at participating properties - just look for the blue Genius label</h1>
+
+    </div>
+    <div>
+<img src="https://t-cf.bstatic.com/design-assets/assets/v3.172.2/illustrations-traveller/GeniusGenericGiftBox@2x.png" alt="offer-img">
+
+    </div>
+
+    </div>
+</div>
 
