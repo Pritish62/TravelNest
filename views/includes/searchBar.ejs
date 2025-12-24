@@ -1,4 +1,4 @@
-<form action="/search" method="GET" class="w-full max-w-5xl mx-auto bg-white rounded-md ring-2 ring-amber-300 overflow-visible">
+<form action="/listings" method="GET" class="w-full max-w-5xl mx-auto bg-white  rounded-md ring-2 ring-amber-300 overflow-visible">
   <div class=" grid grid-cols-1 md:grid-cols-5 gap-4 items-center relative">
     <!-- 1) City / Destination -->
     <div class="col-span-1 md:col-span-1">
@@ -44,14 +44,14 @@
 
           <div class="flex flex-col">
             <label class="text-[11px] text-slate-400">Check-in</label>
-            <input type="date" name="checkin" class="text-sm outline-none bg-transparent" aria-label="Check-in date" />
+            <input type="date"  class="text-sm outline-none bg-transparent" aria-label="Check-in date" />
           </div>
 
           <div class="text-slate-300 text-lg">—</div>
 
           <div class="flex flex-col">
             <label class="text-[11px] text-slate-400">Check-out</label>
-            <input type="date" name="checkout" class="text-sm outline-none bg-transparent" aria-label="Check-out date" />
+            <input type="date"  class="text-sm outline-none bg-transparent" aria-label="Check-out date" />
           </div>
         </div>
       </label>
@@ -98,7 +98,7 @@
           </div>
           <input
             id="adults"
-            name="adults"
+           
             type="number"
             min="1"
             max="50"
@@ -118,7 +118,7 @@
           </div>
           <input
             id="children"
-            name="children"
+            
             type="number"
             min="0"
             max="20"
@@ -138,7 +138,7 @@
           </div>
           <input
             id="rooms"
-            name="rooms"
+           
             type="number"
             min="1"
             max="40"
