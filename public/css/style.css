@@ -1,4 +1,6 @@
-.bg-clr {
+body{
+    padding: 0;
+}.bg-clr {
     background-color: #003B95;
 }
 
@@ -86,11 +88,7 @@ footer {
     border-radius: 1rem;
     margin: auto;
 }
-#home-deco{
-    height: 38vh;
-    width: 100%;
-    
-}
+
 .text-container-home{
     padding-top: 90px;
     padding-bottom: 40px;
@@ -118,6 +116,5 @@ footer {
 }
 
 #nav-search{
-    margin-top: 5rem;
-    width: 50%;
+    margin: auto;
 }
