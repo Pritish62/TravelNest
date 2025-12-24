@@ -5,18 +5,27 @@
 <h3 class="text-2xl  text-[#FFFFFF] text-400">Search low prices on hotels, homes and much more..</h3>
 
   </div>
-
+  
     <%- include('../includes/searchBar.ejs') %>
 </div>
 
   <div class="max-w-7xl mx-auto px-4 py-6  ">
 
     <%- include('../includes/expIndia.ejs') %>
+    <div class="h-18 text-xl font-semibold mt-10 mb-4">
+      <% if (!city) { %>
+        <h1>Trending Property -</h1>
+      <% } %>
+      <% if (city) { %>
+       <h1>property in <%= city %></h1>
+      <% } %>
+    </div>
     
+     
   
     <!-- GRID: 1 column on small, 3 on md, 4 on lg -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
-      <% for (const listing of allListings) { %>
+      <% for (const listing of listings) { %>
         <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
           <!-- image: full width, fixed height, object-cover -->
           <img
