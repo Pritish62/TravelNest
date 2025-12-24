@@ -41,7 +41,7 @@ app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
-    res.locals.isHome = req.path === "/listings";
+    res.locals.isHome = req.path === "/listingsviews/users/login.ejsviews/users/login.ejs";
     next();
 });
 
