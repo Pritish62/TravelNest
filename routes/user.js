@@ -17,4 +17,5 @@ router.route("/login")
 
 router.get("/logout", userController.logout);
 
+router.get("/upcoming" , userController.upcoming)
 module.exports = router;
