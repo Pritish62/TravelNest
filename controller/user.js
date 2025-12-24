@@ -42,3 +42,7 @@ module.exports.logout = (req, res, next) => {
         res.redirect("/listings")
     })
 }
+
+module.exports.upcoming = (req, res, next ) => {
+    res.render("users/upcoming.ejs");
+}
