@@ -7,15 +7,11 @@
         <img src="/logo.png" class="h-8" alt="Travelnest Logo">
       </a>
 
-      <!-- Desktop nav links: visible from md and placed immediately right of logo -->
-      <ul class="hidden md:flex items-center gap-6 whitespace-nowrap">
-        <li><a href="/listings" class="py-2 px-3 text-white font-medium hover:opacity-90">Home</a></li>
-        
-      </ul>
+      
     </div>
      <% if (!isHome) { %>
     <div id="nav-search">
-          <%- include('../includes/searchBar.ejs') %>
+          <%- include('../includes/nav-search.ejs') %>
     </div>
   <% } %>
 
