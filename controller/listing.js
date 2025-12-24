@@ -2,9 +2,20 @@ const Listing = require("../models/listing.js")
 const axios = require("axios");
 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
-}
+  const { city } = req.query;
+
+  let filter = {};
+
+  if (city) {
+    filter.city = city;
+  }
+
+  const listings = await Listing.find(filter);
+
+
+  res.render("listings/index.ejs", { listings, city });
+};
+
 module.exports.renderNewFrom = (req, res) => {
   res.render("listings/new.ejs");
 }
