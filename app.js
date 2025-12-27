@@ -80,6 +80,10 @@ app.use(methodOverride("_method"))
 
 
 //use of routes
+app.get("/", (req, res) => {
+  res.render("home"); // later
+});
+
 app.use("/listings", listingsRoute )
 app.use("/listings/:id", reviewsRoute)
 app.use("/", usersRoute);
