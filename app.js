@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config()
+};
+
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require('method-override');
@@ -9,14 +13,29 @@ const listingsRoute = require("./routes/listing.js");
 const reviewsRoute = require("./routes/review.js");
 const usersRoute = require("./routes/user.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo').default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
- 
+const dbUrl = process.env.MONGO_ATLAS;
+
+const store =  MongoStore.create({
+    mongoUrl :  dbUrl,
+    crypto  : {
+        secret : process.env.SECRET,
+    },
+    touchAfter : 24 * 3600,
+});
+
+store.on("error", (err) => {
+    console.log("Error in MONGO SESSION STORE" , err)
+});
+
 const sessionInfo = {
-    secret: "thisissecretkey",
+    store,
+    secret: process.env.SECRET,
     resave : false,
     saveUninitialized: false,
     cookie: {
@@ -48,7 +67,7 @@ app.use((req, res, next) => {
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/TravelNest');
+    await mongoose.connect(dbUrl);
 }
 
 app.engine('ejs', ejsMate);
