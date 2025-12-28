@@ -79,10 +79,10 @@ app.use(methodOverride("_method"))
 
 
 
-//use of routes
 app.get("/", (req, res) => {
-  res.render("index.ejs"); // later
+  res.redirect("/listings");
 });
+
 
 app.use("/listings", listingsRoute )
 app.use("/listings/:id", reviewsRoute)
